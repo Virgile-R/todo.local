@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    {% if app.user %}
+    <h1>Todos de {{app.user.email}} </h1>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Done?</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for todo in todos %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td>{{todo.name}}</td>
+      <td>{{todo.description}}</td>
+      <td><input type='checkbox' {{todo.done ? 'checked' : ''}} /></td>
+      <td><button class="btn btn-warning">Edit</button></td>
+      <td><button class="btn btn-danger">Delete</button></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+    
+    {% else %}
+    <h1>Créez un compte ou identifiez-vous pour créer des todos</h1>
+    {% endif %}
+    
+
+{% endblock %}
