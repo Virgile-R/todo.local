@@ -46,7 +46,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getEmail(): ?string
     {
-        return $this->email;
+        $decryptedEmail = openssl_decrypt($this->email, 'AES-128-CBC', $_ENV['ENCRYPTION_KEY'], $options = 0, $_ENV['IV']);
+        return $decryptedEmail;
     }
 
     public function setEmail(string $email): static

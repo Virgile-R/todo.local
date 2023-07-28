@@ -22,9 +22,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $key = $_ENV['ENCRYPTION_KEY'];
-            $ivlen = openssl_cipher_iv_length('AES-128-CBC');
-            $iv = openssl_random_pseudo_bytes($ivlen);
-            $encryptedEmail = openssl_encrypt($form->get('email')->getData(), 'AES-128-CBC', $key, $options = 0, $iv);
+            $encryptedEmail = openssl_encrypt($form->get('email')->getData(), 'AES-128-CBC', $key, $options = 0, $_ENV['IV']);
             $user->setEmail($encryptedEmail);
             // encode the plain password
             $user->setPassword(
